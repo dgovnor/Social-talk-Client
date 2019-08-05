@@ -4,7 +4,9 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import link from "react-router-dom/Link";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 const styles = {
   card: {
@@ -33,6 +35,7 @@ class Scream extends Component {
         commentCount
       }
     } = this.props;
+    dayjs.extend(relativeTime);
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -44,13 +47,13 @@ class Scream extends Component {
           <Typography
             variant="h5"
             color="primary"
-            component={link}
+            component={Link}
             to={`/user/${userHandle}`}
           >
             {userHandle}
           </Typography>
           <Typography variant="body2" color="textSecondary">
-            {createdAt}
+            {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{body}</Typography>
         </CardContent>
